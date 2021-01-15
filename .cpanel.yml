@@ -1,0 +1,5 @@
+---
+deployment:
+ tasks:
+    - export DEPLOYPATH=/home/robexhrv/public_html/projects/
+    - /bin/cp -R /home/robexhrv/Portfolio/WheelyGoodChoices $DEPLOYPATH

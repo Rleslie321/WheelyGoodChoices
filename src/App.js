@@ -69,7 +69,7 @@ class App extends Component {
   render(){
     return (
       <div>
-        <h1 className="heading" style={{textAlign: "center"}}>Enter thingy in wheel:</h1>
+        <h1 className="heading" style={{}}>Wheely Good Choices</h1>
         <main className="App">
           <Spinner items={this.state.displayed} />
           <Categories items={this.state.things} handleSubmit={this.handleSubmit} hide={this.hide} delete={this.delete}/>

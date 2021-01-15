@@ -7,7 +7,7 @@
 /* https://codesandbox.io/s/github/hadriengerard/spinning-wheel-game-react?file=/src/components/wheel/index.css updated from this source */
 :root {
   --wheel-font: 'Lato', 'Quicksand', sans-serif;
-  --wheel-font-size: 1rem;
+  --wheel-font-size: 0.75rem;
   --wheel-size: 60vw;
   --wheel-slice-spacing: 30px;
   --wheel-border-size: 5px;

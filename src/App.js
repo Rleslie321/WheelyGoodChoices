@@ -9,9 +9,17 @@ import Categories from './Categories';
 class App extends Component {
   constructor(){
     super();
+    let stored = [];
+    let filtered = [];
+    if(localStorage.storedThings !== undefined){
+      stored = JSON.parse(localStorage.getItem("storedThings"));
+      filtered = stored.filter(item => {
+        return item.display
+      });
+    } 
     this.state = {
-      things: [],//['Pizzas', 'Sandwiches', 'Salads', 'Soup', 'Japanese food', 'Pastas']
-      displayed: []
+      things: stored,//['Pizzas', 'Sandwiches', 'Salads', 'Soup', 'Japanese food', 'Pastas']
+      displayed: filtered
     }
   }
 
@@ -22,9 +30,10 @@ class App extends Component {
       this.setState(prevState => {
         let ary = prevState.things;
         ary.push({cat, display:true})
+        localStorage.setItem("storedThings", JSON.stringify(ary));
         let filtered = ary.filter(item => {
           return item.display
-        })
+        });
         return{
           things: ary,
           displayed: filtered
@@ -39,6 +48,7 @@ class App extends Component {
     this.setState(prevState => {
       let ary = prevState.things;
       ary[index].display = !ary[index].display;
+      localStorage.setItem("storedThings", JSON.stringify(ary));
       let filtered = ary.filter(item => {
         return item.display
       })
@@ -56,6 +66,7 @@ class App extends Component {
     this.setState(prevState => {
       let ary = prevState.things;
       ary.splice(index, 1);
+      localStorage.setItem("storedThings", JSON.stringify(ary));
       let filtered = ary.filter(item => {
         return item.display
       })

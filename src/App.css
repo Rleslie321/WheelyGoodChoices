@@ -1,38 +1,289 @@
-.App {
-  text-align: center;
+/* Robert Leslie
+  2021
+  wheel decider
+*/
+/* basic styling for spinner and category component */
+/* also controls our variables that modify our spinner size and slices */
+/* https://codesandbox.io/s/github/hadriengerard/spinning-wheel-game-react?file=/src/components/wheel/index.css updated from this source */
+:root {
+  --wheel-font: 'Lato', 'Quicksand', sans-serif;
+  --wheel-font-size: 1rem;
+  --wheel-size: 60vw;
+  --wheel-slice-spacing: 30px;
+  --wheel-border-size: 5px;
+  --wheel-color: #6593F5; /*#da3768;*/
+  --border-color: #111E6C;
+  --neutral-color: white;
+  --PI: 3.14159265358979;
+  --nb-item: 0;
+  --item-nb: 0;
+  --selected-item: 0;
+  --nb-turn: 5;
+  --spinning-duration: 4s;
+  --reset-duration: 0.25s;
+
+  --bg-color: rgb(248, 247, 247);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media (min-width: 800px){
+  :root {
+    --wheel-size: 40vw;
+    --wheel-font-size: 1.25rem;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+@media (min-width:1650px){
+  :root{
+    --wheel-size: 681.59px;
+  }
+}
+
+.spinner{
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  margin: 2rem 2rem 0 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 5px dotted black;
+  width: 100%;
 }
 
-.App-link {
-  color: #61dafb;
+/* css for scrollable category section in categories component */
+.hide{
+  display: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.catLabel{
+  margin-right: 1rem;
+}
+
+.catForm{
+  padding: 1rem 0;
+  width: fit-content;
+  justify-self: center;
+  align-self: center;
+}
+
+.catDiv{
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 600px){
+  .catForm input{
+    height: 2rem;
   }
-  to {
-    transform: rotate(360deg);
+  .catForm button{
+    height: 2.4rem;
   }
+}
+
+@media (min-width:1200px){
+  .catDiv{
+    padding: 2rem;
+    width: 40vw;
+    border-left: 5px dotted black;
+  }
+  .spinner{
+    border: none;
+    /* border-right: 5px dotted black; */
+    margin: 0 2rem;
+    padding-top: 2rem;
+    align-self: flex-start;
+  }
+  /* .App{
+    
+  } */
+}
+
+.categories{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.categories .catHide{
+  margin-right: 1rem;
+}
+
+.catHideBox{
+  margin-right: 1.5rem;
+}
+
+.catDeleteBox{
+  margin-right: 1.25rem;
+  margin-left: 0;
+}
+
+.catBar{
+  width: 1px;
+  border-right: 1px solid black;
+  height: 1rem;
+  margin-right: 1.5rem;
+}
+
+.scrollable{
+  height: 50vh;
+  overflow-y: auto;
+  /* background-color: white; */
+}
+
+/* Wheel container = outer indigo circle */
+.wheel-container {
+  display: block;
+  position: relative;
+  box-sizing: content-box;
+  width: calc(var(--wheel-size) + 2 * var(--wheel-border-size));
+  height: calc(var(--wheel-size) + 2 * var(--wheel-border-size));
+  padding: 3px;
+  margin: auto;
+  /* background-color: var(--neutral-color); */
+  background-color: var(--bg-color);
+  border: solid var(--border-color) 3px;
+  border-radius: 50%;
+  user-select: none;
+  margin-bottom: 1rem;
+}
+
+/* Selection triangle = 1 indigo + 1 background colored*/
+.wheel-container::before,
+.wheel-container::after {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 0;
+  width: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  border: solid transparent 20px;
+  border-left-width: 0;
+}
+
+.wheel-container::before {
+  right: 0px;
+  border-right-color: var(--border-color);
+}
+
+.wheel-container::after {
+  right: -5px;
+  /* border-right-color: var(--neutral-color); */
+  border-right-color: var(--bg-color);
+}
+
+/* wheel */
+.wheel {
+  display: block;
+  position: relative;
+  box-sizing: content-box;
+  margin: auto;
+  width: var(--wheel-size);
+  height: var(--wheel-size);
+  overflow: hidden;
+  border-radius: 50%;
+  border: solid var(--wheel-color) var(--wheel-border-size);
+  background-color: var(--wheel-color);
+  transition: transform var(--reset-duration);
+  transform: rotate(0deg);
+  
+}
+
+.wheel.spinning {
+  transition: transform var(--spinning-duration);
+  transform: rotate(calc(var(--nb-turn) * 360deg + (-360deg * var(--selected-item) / var(--nb-item, 1))));
+}
+
+/* center of the circle = white circle in the center */
+.wheel::after {
+  display: block;
+  position: absolute;
+  content: '';
+  background-color: var(--border-color);
+  width: 25px;
+  height: 25px;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+/* Element on the wheel */
+.wheel-item {
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+
+  /* position of the item */
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  transform-origin: center left;
+  transform: translateY(-50%) rotate(calc(var(--item-nb) * (360deg / var(--nb-item, 1))));
+
+  /* text */
+  color: var(--neutral-color);
+  text-align: right;
+  padding: 0 25px 0 50px;
+  font-family: var(--wheel-font);
+  font-size: var(--wheel-font-size);
+}
+
+/* background of the wheel = lighter blue arc */
+.wheel-item:before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+  z-index: -1;
+  width: 0;
+  height: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-left: 0px;
+  opacity: 0.25;
+  /* opacity: 1; */
+  
+  /* 
+    Triangle width
+  */
+  --slice-max-width: calc(var(--PI) * var(--wheel-size) + var(--wheel-size) / 2);
+  --slice-width: calc((var(--slice-max-width) / var(--nb-item)) - var(--wheel-slice-spacing));
+  border: solid transparent calc(var(--slice-width) / 2);
+  border-left: solid transparent 0;
+  /* triangle depth = from the center of the wheel to the edge = 300px / 2*/
+  border-right: solid var(--neutral-color) calc(var(--wheel-size) / 2);
+}
+
+#reset, 
+#spin{
+  border: 2px solid var(--border-color);
+  background-color: var(--wheel-color);
+  color: var(--neutral-color);
+  font-size: 1.5rem !important;
+  height: 3rem;
+  width: 6rem;
+  text-transform: capitalize;
+  letter-spacing: 0.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#reset:hover,
+#spin:hover,
+#submit:hover{
+  background-color: var(--border-color);
+}
+
+#submit{
+  border: 2px solid var(--border-color);
+  background-color: var(--wheel-color);
+  color: var(--neutral-color);
+  text-transform: capitalize;
+  letter-spacing: 0.1rem;
+  border-radius: 5px;
+  cursor: pointer;
 }

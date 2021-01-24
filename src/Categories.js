@@ -91,7 +91,7 @@ class Categories extends Component{
                     </div>
                     
                 </div>
-                {<div className={`scrollable ${document.body.clientWidth < 1200 ? 'hide' : ''}`}>
+                {<div className={`scrollable ${document.body.clientWidth < 1200 && this.props.items.length === 0 ? 'hide' : ''}`}>
                     { this.props.items.map((item, index) => (
                         <div className="categories" key={index}>
                             <p style={{wordWrap: "break-word", width: "12rem"}}>{item.cat}</p>

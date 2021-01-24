@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/projects/WheelyGoodChoices/static/css/main.6a0fae35.chunk.css",
-    "main.js": "/projects/WheelyGoodChoices/static/js/main.d405755f.chunk.js",
-    "main.js.map": "/projects/WheelyGoodChoices/static/js/main.d405755f.chunk.js.map",
+    "main.css": "/projects/WheelyGoodChoices/static/css/main.5df3199d.chunk.css",
+    "main.js": "/projects/WheelyGoodChoices/static/js/main.1c3ab92d.chunk.js",
+    "main.js.map": "/projects/WheelyGoodChoices/static/js/main.1c3ab92d.chunk.js.map",
     "runtime-main.js": "/projects/WheelyGoodChoices/static/js/runtime-main.3e98a3a9.js",
     "runtime-main.js.map": "/projects/WheelyGoodChoices/static/js/runtime-main.3e98a3a9.js.map",
     "static/js/2.c757b738.chunk.js": "/projects/WheelyGoodChoices/static/js/2.c757b738.chunk.js",
     "static/js/2.c757b738.chunk.js.map": "/projects/WheelyGoodChoices/static/js/2.c757b738.chunk.js.map",
     "index.html": "/projects/WheelyGoodChoices/index.html",
-    "static/css/main.6a0fae35.chunk.css.map": "/projects/WheelyGoodChoices/static/css/main.6a0fae35.chunk.css.map",
+    "static/css/main.5df3199d.chunk.css.map": "/projects/WheelyGoodChoices/static/css/main.5df3199d.chunk.css.map",
     "static/js/2.c757b738.chunk.js.LICENSE.txt": "/projects/WheelyGoodChoices/static/js/2.c757b738.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.3e98a3a9.js",
     "static/js/2.c757b738.chunk.js",
-    "static/css/main.6a0fae35.chunk.css",
-    "static/js/main.d405755f.chunk.js"
+    "static/css/main.5df3199d.chunk.css",
+    "static/js/main.1c3ab92d.chunk.js"
   ]
 }
